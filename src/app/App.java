@@ -31,7 +31,7 @@ public class App {
             System.out.print("e-mail: ");
             String email=sc.next();
             System.out.println();
-            System.out.print("Birth date: (DD/MM/YYYY)");
+            System.out.print("Birth date: (DD/MM/YYYY) ");
             String dataSF=sc.next();
             int dia=Integer.parseInt(dataSF.substring(0,2));
             int mes=Integer.parseInt(dataSF.substring(3,5));
@@ -64,11 +64,11 @@ public class App {
             }
         
 
-            System.out.print("how many items to this order?");
+            System.out.print("how many items to this order? ");
             int n=sc.nextInt();
             System.out.println();
             for (int i=0;i<n;i++){
-                System.out.println("Enter "+i+1+"item data:");
+                System.out.printf("Enter %d item data:",i+1%n);
                 System.out.print("Product name: ");
                 sc.nextLine();
                 String P_name=sc.nextLine();
