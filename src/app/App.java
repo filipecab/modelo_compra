@@ -2,6 +2,8 @@ package app;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 import java.time.format.DateTimeFormatter;
 import cliente.Cliente;
 import ordemDeServico.ordem;
@@ -16,7 +18,11 @@ public class App {
         Locale.setDefault(Locale.US);
         Scanner sc=new Scanner(System.in);
         boolean c=true;
-        
+        ordem compra=new ordem();
+        Cliente cl=new Cliente();
+        Produto p=new Produto();
+        Item item=new Item();
+        List<Item> c1=new ArrayList<>();
         while (c){
             System.out.println("Enter cliente data: ");
             System.out.print("name: ");
@@ -31,7 +37,7 @@ public class App {
             int mes=Integer.parseInt(dataSF.substring(3,5));
             int ano=Integer.parseInt(dataSF.substring(6,9));
 
-            Cliente cl=new Cliente(nome,email,LocalDate.of(ano,mes,dia));
+            cl=new Cliente(nome,email,LocalDate.of(ano,mes,dia));
             System.out.println();
             System.out.println("Enter ordem data: ");
             System.out.print("Status: ");
@@ -53,8 +59,7 @@ public class App {
                     break;
                 default:
                     System.out.println("Erro ao executar!");
-                    status="";
-                
+                    c=false;
 
             }
         
@@ -75,15 +80,33 @@ public class App {
                 int q=sc.nextInt();
                 System.out.println();
                 LocalDate momento=LocalDate.now();
-                ordem compra=new ordem(momento,Status.valueOf(status));
-                Produto p=new Produto(P_name,preco_p);
-                Item item=new Item(q,p.getPrecoP(),p);
+                compra=new ordem(momento,Status.valueOf(status));
+                p=new Produto(P_name,preco_p);
+                item=new Item(q,p.getPrecoP(),p);
+                compra.addItem(item);
+                c1.add(item);
             }
+
+            System.out.println("ORDER SUMMARY");
+            System.out.println("ORDER MOMENT"+compra.getMomento());
+            System.out.println("ORDER STATUS: "+compra.getSt());
+            System.out.println("Cliente: "+cl.toString(dataSF));
+            System.out.println("ORDER SERVICE: ");
             
+            for (Item x:c1){
+                System.out.println(x.getProduto().getNomeP()+", $"+x.getPrecoi()+", Quantity: "+x.getQuantidadeI()+", Subtotal"+x.totalvalor());
+            }
+            System.out.println("Total price: $"+compra.totalTudo());          
+            
+            System.out.println("continuar s ou n?");
+            char opc2=sc.next().charAt(0);
 
+            if (opc2=='n'){
+                System.out.println("Obrigado por usar este programa");
+                c=false;
+            }
 
-
-
+            sc.nextLine();
 
 
 

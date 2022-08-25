@@ -8,7 +8,7 @@ public class Cliente {
     
     public Cliente() {
     }
-    
+
     public Cliente(String nome, String email, LocalDate data_nasc) {
         this.nome = nome;
         this.email = email;
@@ -32,7 +32,9 @@ public class Cliente {
     public void setData_nasc(LocalDate data_nasc) {
         this.data_nasc = data_nasc;
     }
-    
+    public String toString(String dataNsc){
+        return nome+" "+"("+dataNsc+")"+" - "+email;
+    }
 
 
 }

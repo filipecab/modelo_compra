@@ -34,8 +34,6 @@ public class Item {
         this.precoi = precoi;
     }
 
-    
-
 
     public Produto getProduto() {
         return produto;
