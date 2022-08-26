@@ -4,13 +4,12 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.format.DateTimeFormatter;
 import cliente.Cliente;
 import ordemDeServico.ordem;
 import status.Status;
 import item.Item;
 import produto.Produto;
-import java.text.ParseException;
+
 
 
 public class App {
@@ -23,6 +22,7 @@ public class App {
         Produto p=new Produto();
         Item item=new Item();
         List<Item> c1=new ArrayList<>();
+        
         while (c){
             System.out.println("Enter cliente data: ");
             System.out.print("name: ");
@@ -62,13 +62,16 @@ public class App {
                     c=false;
 
             }
+            LocalDate momento=LocalDate.now();
+            compra=new ordem(momento,Status.valueOf(status));
         
 
             System.out.print("how many items to this order? ");
             int n=sc.nextInt();
             System.out.println();
             for (int i=0;i<n;i++){
-                System.out.printf("Enter %d item data:",i+1%n);
+                System.out.printf("Enter %d item data:",i+1);
+                System.out.println();
                 System.out.print("Product name: ");
                 sc.nextLine();
                 String P_name=sc.nextLine();
@@ -79,10 +82,8 @@ public class App {
                 System.out.print("Quantity: ");
                 int q=sc.nextInt();
                 System.out.println();
-                LocalDate momento=LocalDate.now();
-                compra=new ordem(momento,Status.valueOf(status));
                 p=new Produto(P_name,preco_p);
-                item=new Item(q,p.getPrecoP(),p);
+                item=new Item(q,preco_p,p);
                 compra.addItem(item);
                 c1.add(item);
             }
@@ -92,9 +93,8 @@ public class App {
             System.out.println("ORDER STATUS: "+compra.getSt());
             System.out.println("Cliente: "+cl.toString(dataSF));
             System.out.println("ORDER SERVICE: ");
-            
-            for (Item x:c1){
-                System.out.println(x.getProduto().getNomeP()+", $"+x.getPrecoi()+", Quantity: "+x.getQuantidadeI()+", Subtotal"+x.totalvalor());
+            for (Item x: c1){
+                System.out.println(x.getProduto().getNomeP()+", $"+x.getPrecoi()+", Quantity: "+x.getQuantidadeI()+", subtotal: "+x.totalvalor());
             }
             System.out.println("Total price: $"+compra.totalTudo());          
             

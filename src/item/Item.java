@@ -18,7 +18,7 @@ public class Item {
    
     public Item(Integer quantidadeI, Double precoi,Produto produto) {
         this.quantidadeI = quantidadeI;
-        this.precoi = produto.getPrecoP();
+        this.precoi = precoi;
         this.produto = produto;
     }
     public Integer getQuantidadeI() {
